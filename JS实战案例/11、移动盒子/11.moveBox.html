@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        #div{
+            width: 100px;
+            height:100px;
+            background-color: #f00;
+            position: absolute;
+            /* left:100px; */
+        }
+        button{
+            position: relative;
+            top:120px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div"></div>
+    <button>点击开始</button>
+    <button>点击停止</button>
+    <script>
+        // 逻辑：1.一个元素动起来，其实就是位置的移动
+        // 2.连续动起来，需要一个定时器的 （有一个开关才行，为了防止多个定时器累积）
+        // 3.需要对移动做条件 (当移动距离大于body宽度或小于0)
+        // 当满足两个条件 做相反移动
+        let buts = document.getElementsByTagName('button');
+        let div = document.getElementById('div');
+        let body = document.body;
+        let num = 0;
+        let timer = null;
+        buts[0].onclick = function(){
+            // 声明一个变量speed，也就是移动的速度
+            let speed = 5;
+            if(timer==null){
+                timer = setInterval(()=>{
+                    num += speed;//移动速度
+                    div.style.left = num+'px';//元素真正移动的核心
+                    // 当移动距离大于body宽度或小于0
+                    if(num>=body.offsetWidth-div.offsetWidth || num<=0){
+                        // 速度变量取反
+                        speed = -speed;
+                    }
+                },100);
+            }
+        }
+        buts[1].onclick = function(){
+            clearInterval(timer);
+            timer=null;
+        }
+
+    </script>
+</body>
+</html>

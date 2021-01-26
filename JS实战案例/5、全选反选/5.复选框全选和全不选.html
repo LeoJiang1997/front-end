@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <p><input type="checkbox" name="" id="">尼古拉斯·赵四</p>
+        <p><input type="checkbox" name="" id="">莱昂纳多·刘能</p>
+        <p><input type="checkbox" name="" id="">约翰尼·宋小宝</p>
+        <p><input type="checkbox" name="" id="">布拉德·小沈阳</p>
+    </form>
+    <button onclick="getAll(0)">全选</button>
+    <button onclick="getAll(1)">全不选</button>
+    <button onclick="getAll(2)">反选</button>
+    <script>
+        // 选中三个形式：1.用户点击（√）  2.在标签上添加checked属性   3.js中，checked=true
+        let but = document.getElementsByTagName('button');
+        let input = document.getElementsByTagName('input');
+        // 全选
+        // but[0].onclick = function(){
+        //     for(let i=0;i<input.length;i++){
+        //         input[i].checked = true;
+        //     }
+        // }
+        // // 全不选
+        // but[1].onclick = function(){
+        //     for(let i=0;i<input.length;i++){
+        //         input[i].checked = false;
+        //     }
+        // }
+        // // 反选
+        // but[2].onclick = function(){
+        //     for(let i=0;i<input.length;i++){
+        //         input[i].checked = !input[i].checked;
+        //     }
+        // }
+
+
+        // 封装为函数，进行优化
+        function getAll(num){
+            for(let i=0;i<input.length;i++){
+                if(num==0){
+                    input[i].checked = true;
+                }else if(num==1){
+                    input[i].checked = false;
+                }else{
+                    input[i].checked = !input[i].checked;
+                }
+            }
+        }
+    
+    </script>
+</body>
+</html>

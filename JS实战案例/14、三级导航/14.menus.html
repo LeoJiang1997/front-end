@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+        }
+
+        #ul1 {
+            width: 500px;
+            font-size: 14px;
+            color: #fff;
+            line-height: 30px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        #ul1 li {
+            display: inline-block;
+            float: left;
+            width: 98px;
+            height: 30px;
+            background: #f60;
+            border: 1px solid #fff;
+        }
+
+        #ul1 li:hover {
+            background: #666666;
+        }
+
+        #ul1 .ul2 {
+            display: none;
+            position: relative;
+            width: 100px;
+        }
+
+        #ul1 .ul2 li {
+            background: gold;
+            position: relative;
+        }
+
+        #ul1 .ul2 li:hover {
+            background: #F6F;
+        }
+
+        #ul1 .ul2 .ul3 li:hover {
+            background: skyblue;
+        }
+
+        #ul1 .ul2 .ul3 li {
+            background: seagreen;
+        }
+
+        #ul1 .ul2 .ul3 {
+            position: absolute;
+            left: 98px;
+            top: 0px;
+            display: none;
+            width: 100px;
+            height: 90px;
+        }
+    </style>
+    
+</head>
+<body>
+    <ul id="ul1">
+        <!-- <li class="li1">
+            <a href="##">一级导航1</a>
+            <ul class="ul2">
+                <li class="li2">
+                    <a href="##">二级导航1</a>
+                    <ul class="ul3">
+                        <li class="li3">
+                            <a href="##">三级导航1</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li> -->
+    </ul>
+
+
+    <script>
+        // 1.先获取数据
+        let xml = new XMLHttpRequest();
+        xml.open('get','./nav.json',true);
+        xml.send();
+        xml.onreadystatechange = function(){
+            // console.log(xml.status);//服务器状态
+            // console.log(xml.readyState);//ajax状态
+            if(xml.status==200 && xml.readyState==4){
+                let datas = JSON.parse(xml.responseText).data;
+                // 2.进行数据拼接
+                let li1 = '';
+                datas.forEach((fir)=>{
+                    
+                    let li2 = '';
+                    fir.content.forEach((sec)=>{
+                        let li3 = '';
+                        sec.content.forEach((thi)=>{
+                            // console.log(thi);
+                            li3 += '<li class="li3">'+
+                                        '<a href="##">'+thi+'</a>'+
+                                    '</li>';
+                        });
+
+
+                        li2 += '<li class="li2">'+
+                                    '<a href="##">'+sec.title+'</a>'+
+                                    '<ul class="ul3">'+
+                                        li3 +
+                                    '</ul>'+
+                                '</li>';
+                    });
+
+                    li1 += '<li class="li1">'+
+                                '<a href="##">'+fir.title+'</a>'+
+                                '<ul class="ul2">'+
+                                    li2+
+                                '</ul>'+
+                           '</li>';
+                });
+
+
+                // 把所有拼接好的元素 作为  id为ul1 的html进行赋值
+                document.getElementById('ul1').innerHTML = li1;
+
+                // 3.显示和隐藏功能
+                // 鼠标移入 li1的时候，让ul2显示  反之 隐藏
+                // 鼠标移入 li2的时候，让ul3显示  反之 隐藏
+                let one = document.getElementsByClassName('li1');
+                let ul2 = document.getElementsByClassName('ul2');
+
+                let two = document.getElementsByClassName('li2');
+                let ul3 = document.getElementsByClassName('ul3');
+                // 二级菜单显示or隐藏
+                showAndHide(one,ul2);
+                // 三级菜单显示or隐藏
+                showAndHide(two,ul3);
+               
+            }
+        }
+
+        function showAndHide(lis,uls){
+            for(let i=0;i<lis.length;i++){
+                // 先给li1下标赋值
+                lis[i].index = i;
+                lis[i].onmouseover = function(){
+                    // 让ul2显示
+                    // 利用ul2和li1 是对应的
+                    uls[this.index].style.display = 'block';
+                }
+                lis[i].onmouseout = function(){
+                    uls[this.index].style.display = 'none';
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

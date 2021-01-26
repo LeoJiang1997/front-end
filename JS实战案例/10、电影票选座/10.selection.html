@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul,li{
+			margin:0;
+			padding:0;
+			list-style: none;
+		}
+
+		ul{
+			width:560px;
+			border:3px solid #eee;
+			margin:0 auto;
+		}
+
+		li{
+			width:80px;
+			height:40px;
+			background: #ccc;
+			border:1px solid #abc;
+			float:left;
+			margin:5px;
+			cursor:pointer;
+		}
+
+		div{
+			width:280px;
+			height:90px;
+			border:1px solid #ccc;
+			margin: 0 auto;
+			text-align: center;
+			line-height: 90px;
+			color:#333;
+		}
+
+		.click{
+			font-size:10px;
+			text-align:center;
+			line-height: 40px;
+			font-family: '仿宋';
+			font-weight: bold;
+			color:#333;
+			background: orange;
+			border:1px solid red;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+		<p style="clear:both;"></p>
+		<div>屏幕中央</div>
+	</ul>
+
+	<script>
+		// 逻辑：没有click类的时候，进行添加，同时对文本进行赋值；反之，清空click类，同时 文本值为空
+		let lis = document.getElementsByTagName('li');
+		for(let i=0;i<lis.length;i++){
+			lis[i].onclick = function(){
+				let res = this.getAttribute('class');
+				if(!res){
+					this.setAttribute('class','click');
+					this.innerText = '座位已选';
+				}else{
+					this.setAttribute('class','');
+					this.innerText = '';
+				}
+			}
+		}
+
+	</script>
+</body>
+</html>

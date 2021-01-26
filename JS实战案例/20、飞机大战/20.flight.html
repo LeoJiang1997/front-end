@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#box{
+			width:512px;
+			height: 536px;
+			border:1px solid red;
+			background: url('./bg2.jpg') no-repeat 0px -1000px;
+			position: relative;
+		}
+		#img{
+			position: absolute;
+			bottom: 100px;
+			left:200px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<img src="./me.png" alt="" id="img">
+	</div>
+
+	<script>
+		// 逻辑
+		// 1.背景图片向下移动
+		let box = document.getElementById('box');
+		let img = document.getElementById('img');
+		// box.style.backgroundPosition = '0px -1000px';
+		let num = 0;
+		setInterval(()=>{
+			num++;
+			if(num>=1000) num=0;
+			box.style.backgroundPosition = '0px '+ (-1000+num) +'px';
+		},10)
+
+		// 2.实现 小飞机的移动
+		window.document.onkeydown = function(e){
+			var e = e || window.event;
+			// 2.1 向前  keyCode 38
+			if(e.keyCode==38){
+				// offsetTop  一个元素到父级的顶部距离（父级必须具有position属性）
+				let top = img.offsetTop-10;
+				if(top <=20) top=20;
+				img.style.top = top+'px';
+			}
+
+			// 2.2 向后 keyCode 40
+			if(e.keyCode==40){
+				let top = img.offsetTop+10;
+				if(top >=420) top=420;
+				img.style.top = top+'px';
+			}
+
+			// 2.3 向左 keyCode 37
+			if(e.keyCode==37){
+				let left = img.offsetLeft-10;
+				if(left <=20) left=20;
+				img.style.left = left+'px';
+			}
+
+			// 2.2 向右 keyCode 39
+			if(e.keyCode==39){
+				let left = img.offsetLeft+10;
+				if(left >=380) left=380;
+				img.style.left = left+'px';
+			}
+		}
+
+	</script>
+</body>
+</html>

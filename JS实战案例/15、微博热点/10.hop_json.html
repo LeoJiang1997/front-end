@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./jq.js"></script>
+    <style>
+        *{
+            margin:0px;
+            padding: 0px;
+        }
+        div{
+            width: 500px;
+            height: 500px;
+            margin:50px auto;
+        }
+        ul{
+            list-style: none;
+            margin-top: 20px;
+        }
+        li{
+            width: 400px;
+            height: 40px;
+            border-bottom: 1px solid #eee;
+            line-height: 40px;
+        }
+        a{
+            text-decoration: none;
+            color: blue;
+            margin-right: 50px;
+            display: inline-block;
+            width: 280px;
+        }
+        h2{
+            float: left;
+            margin-right: 230px;
+        }
+        button{
+            padding: 5px;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>百度热榜</h2>
+        <button id="but">换一换</button>
+        <ul>
+            <!-- <li><a href="">朱广权神总结开学心情</a><span>4730000</span></li> -->
+            <!-- <li><a href="">瑞德西韦美国试验结果数据积极</a><span>4703000</span></li>
+            <li><a href="">郭涛出书自曝打女人经历</a><span>1212122</span></li>
+            <li><a href="">外交部回应两会代表是否要隔离</a><span>233434</span></li>
+            <li><a href="">冯小乐是金文科技创始人</a><span>909090</span></li>
+            <li><a href="">张文宏称戴口罩分餐将成新常态</a><span>442545</span></li>
+            <li><a href="">北京朝阳降为低风险地区</a><span>345678</span></li> -->
+        </ul>
+    </div>
+    <script>
+        // 逻辑：获取数据，按照规定好的要求，进行展示
+        // ajax获取数据，js动态拼接，最后append到ul
+        // 本案例使用的是 jQuery
+        $(function(){
+            $.ajax({
+                type:"get",
+                url:"./top.json",
+                data:{},
+                dataType:"json",
+                success:function(res){
+                    let datas = res.data;//1.获取数据
+                    let str = '';
+                    datas.forEach((item)=>{
+                        // 2.进行动态拼接
+                        str += '<li><a href="">'+item.title+'</a><span>'+item.num+'</span></li>';
+                    });
+                    // 3.要把之前的全部删除
+                    $("ul li").remove();
+                    // 4.把新的元素添加
+                    $("ul").append(str);
+                }
+            });
+        })
+        
+
+    </script>
+</body>
+</html>

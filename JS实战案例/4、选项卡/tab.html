@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,li{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+
+        ul{
+            overflow: hidden;
+        }
+        li{
+            width: 100px;
+            height: 40px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            float: left;
+            line-height: 40px;
+            text-align: center;
+        }
+
+        div{
+            width: 406px;
+            height: 406px;
+            border: 1px solid #ccc;
+        }
+        img{
+            width: 406px;
+            height: 406px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>大橘</li>
+        <li>英短</li>
+        <li>美短</li>
+        <li>布偶</li>
+    </ul>
+    <div>
+        <img src="./ju.jpg" alt="" style="display: block;">
+        <img src="./ying.jpg" alt="">
+        <img src="./hu.jpg" alt="">
+        <img src="./bu.jpg" alt="">
+    </div>
+    <script>
+        // 逻辑：1.移动到哪个选项卡上，自己的背景颜色要改变  2.对应的内容区域要显示
+        // 同理，移出时，背景颜色恢复，对应内容区域隐藏
+
+        let li = document.getElementsByTagName('li');
+        let img = document.getElementsByTagName('img');
+
+        for(let i = 0;i<li.length;i++){
+            // 先进行元素数组 下标的设置
+            li[i].index = i;
+
+            li[i].onmouseover = function(){
+                this.style.backgroundColor = 'yellow';
+                // console.log(this.index);
+                // 先把所有的图片都隐藏，再让对应的图片出现
+                for(let j=0;j<img.length;j++){
+                    img[j].style.display = 'none';
+                }
+                img[this.index].style.display = 'block';
+            }
+
+            li[i].onmouseout = function(){
+                li[i].style.backgroundColor = '#eee';
+            }
+        }
+
+    
+    </script>
+</body>
+</html>

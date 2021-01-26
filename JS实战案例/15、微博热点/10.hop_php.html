@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./jq.js"></script>
+    <style>
+        *{
+            margin:0px;
+            padding: 0px;
+        }
+        div{
+            width: 500px;
+            height: 500px;
+            margin:50px auto;
+        }
+        ul{
+            list-style: none;
+            margin-top: 20px;
+        }
+        li{
+            width: 400px;
+            height: 40px;
+            border-bottom: 1px solid #eee;
+            line-height: 40px;
+        }
+        a{
+            text-decoration: none;
+            color: blue;
+            margin-right: 50px;
+            display: inline-block;
+            width: 280px;
+        }
+        h2{
+            float: left;
+            margin-right: 230px;
+        }
+        button{
+            padding: 5px;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>百度热榜</h2>
+        <button id="but">换一换</button>
+        <ul>
+            <!-- <li><a href="">朱广权神总结开学心情</a><span>4730000</span></li>
+            <li><a href="">朱广权神总结开学心情</a><span>4730000</span></li>
+            <li><a href="">朱广权神总结开学心情</a><span>4730000</span></li> -->
+        </ul>
+    </div>
+    <script>
+        // 点击换一换，请求ajax
+        // 第一次加载时，请求ajax
+        function getNews(){
+            $.ajax({
+                type:"get",
+                url:"http://localhost/kejian/top.php",
+                dataType:"json",
+                success:function(res){
+                    let str = '';
+                    res.forEach((item)=>{
+                        str += '<li><a href="">'+item.title+'</a><span>'+item.num+'</span></li>';
+                    });
+                    $("ul li").remove();
+                    $("ul ").append(str);
+                }
+            });
+        }
+        // 1.第一次加载
+        getNews();
+
+        $("#but").click(getNews);
+
+    </script>
+</body>
+</html>

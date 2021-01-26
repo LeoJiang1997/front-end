@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #fa{
+            width: 600px;
+            height: 600px;
+            border:1px solid red;
+        }
+        #fa>div{
+            width: 33%;
+            height: 33%;
+            border: 1px solid red;
+            float: left;
+            line-height: 200px;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #start{
+            cursor: pointer;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="fa">
+        <div class="option">仓井老师</div>
+        <div class="option">波多老师</div>
+        <div class="option">武藤老师</div>
+        <div class="option">小泽老师</div>
+        <div id="start">开始抽奖</div>
+        <div class="option">相泽南</div>
+        <div class="option">三上悠亚</div>
+        <div class="option">桥本有才</div>
+        <div class="option">泷泽老师</div>
+    </div>
+
+    <script>
+        // 逻辑：1.点击开始，触发一个定时器  
+        // 2.定时器内部，随机一个数，通过这个数来获取  奖品所在的元素
+        // 3.必须设置一个时间点，停止定时器
+        let but = document.getElementById('start');
+        let options = document.getElementsByClassName('option');
+        let timer = null;
+        but.onclick = function(){
+            // 设置一个初始值 作为时间判断
+            let num = 0;
+            // 1.触发一个定时器
+            if(timer==null){
+                timer = setInterval(()=>{
+                    num++;
+                    // 2.随机 0-7的数，通过数组下标获取具体选中的元素
+                    let ran = Math.round(Math.random()*(7-0)+0);
+                    
+                    // 3.1 把所有的元素都恢复原来样式
+                    for(let i=0;i<options.length;i++){
+                        options[i].style.backgroundColor = '#fff';
+                    }
+                    // 3.2 给选中元素 添加样式（背景颜色）
+                    options[ran].style.backgroundColor = 'orange';
+
+                    // 4.给定时器设置有效时间，停止定时器 
+                    if(num>=50){ // 50代表的是 业务要求
+                        clearInterval(timer);
+                        timer = null;
+                    }
+                },100);
+            }
+            
+        }
+
+
+    </script>
+</body>
+</html>

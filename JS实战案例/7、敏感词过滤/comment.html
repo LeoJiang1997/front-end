@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #res{
+            width: 200px;
+            height: 200px;
+            border:1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h2>敏感词过滤</h2>
+    <p>
+        <textarea name="" id="area" cols="30" rows="10"></textarea>
+    </p>
+
+    <p>
+        <input type="submit" value="发布" id="input">
+    </p>
+    <p id="res"></p>
+
+    <script>
+        // 逻辑：用户输入的值，如果和正则匹配到了，则进行替换
+        // 金三胖  妈的     使用*  替换
+        let area = document.getElementById('area');
+        let input = document.getElementById('input');
+        let res = document.getElementById('res');
+        let reg = /金三胖|妈的/g;
+        input.onclick = function(){
+            let newVue = area.value.replace(reg,'*');
+            res.innerText = newVue;
+        }
+    
+    </script>
+</body>
+</html>

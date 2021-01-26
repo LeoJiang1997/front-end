@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: #f0f;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+</head>
+<body>
+    <h2>鼠标绑定小盒子</h2>
+     <div id="div"></div>
+     <script>
+        //  逻辑：1.先获取鼠标的X、Y坐标
+        // 2.给div进行位置赋值 left 、 top
+        let div = document.getElementById('div');
+        document.onmousemove = function(e){
+            let event = e || window.event;
+            // console.log(event);
+            div.style.left = event.clientX-div.clientWidth/2+'px';
+            div.style.top = event.clientY-div.clientHeight/2+'px';
+        }
+     </script>
+</body>
+</html>

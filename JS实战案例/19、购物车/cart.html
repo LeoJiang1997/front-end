@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./jq.js"></script>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            width: 600px;
+            text-align: center;
+        }
+        td,th{
+            width: 120px;
+        }
+        button {
+            border: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th><button class="all">全选</button></th>
+            <th>商品名称</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>小计</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td><input type="checkbox" name="" class="getGoods"> </td>
+            <td>电脑</td>
+            <td class="price">200</td>
+            <td>
+                <button class="jian">-</button>
+                <span>1</span>
+                <button class="add">+</button>
+            </td>
+            <td class="total">200</td>
+            <td>删除</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" name=""  class="getGoods"> </td>
+            <td>手机</td>
+            <td class="price">100</td>
+            <td>
+                <button class="jian">-</button>
+                <span>1</span>
+                <button class="add">+</button>
+            </td>
+            <td class="total">100</td>
+            <td>删除</td>
+        </tr>
+    </table>
+    <div>
+        <span>总计：</span>
+        <span class="sum">0</span>
+    </div>
+
+    <script>
+        // 逻辑：
+
+        // 加载页面时，调用getSum 总价
+        getSum();
+        // 1.加减（小计）
+        // 加法
+        $(".add").click(function(){
+            // 1.1 算出数量变化
+            let num = parseInt($(this).prev().text());
+            num++;
+            $(this).prev().text(num);
+            // 1.2 算出 小计价格
+            let price = parseInt($(this).parent().prev().text());
+            $(this).parent().next().text(price*num);
+
+            // 调用 总价
+            getSum();
+        })
+        // 减法
+        $(".jian").click(function(){
+            // 1.1 算出数量变化
+            let num = parseInt($(this).next().text());
+            num--;
+            if(num<1) num=1;
+            $(this).next().text(num);
+
+            // 1.2 算出 小计价格
+            let price = parseInt($(this).parent().prev().text());
+            $(this).parent().next().text(price*num);
+            // 调用 总价
+            getSum();
+        })
+
+        // 2. 总价 = 小计之和（选中条件下）
+
+        function getSum(){
+            let sum = 0;
+            for(let i=0;i<$('.total').length;i++){
+                // 添加 选中判断的条件
+                if($('.total').eq(i).parent().find('input').prop('checked')){
+                    sum += parseInt($('.total').eq(i).text())
+                }
+            }
+            $('.sum').text(sum);
+        }
+
+        // 3. 选中
+        // 选中：有三种表现形式  
+        // 1> 用户点击 出现 √    
+        // 2> 添加属性 checked    
+        // 3> js操作  attr()   /  prop('checked',true)
+
+        // 3.1 全选
+        $('.all').click(function(){
+            $('.getGoods').prop('checked',true);
+            // 调用 总价
+            getSum();
+        });
+        // 3.2 用户选中
+        $('.getGoods').click(function(){
+            // 其实已经选中了
+            
+            // 调用 总价
+            getSum();
+        });
+
+
+    </script>
+
+</body>
+
+</html>
